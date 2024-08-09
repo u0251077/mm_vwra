@@ -35,7 +35,7 @@ def main():
     stock_sum = stock_count*vwra_stock_price*usd_twd_exchange_rate
 
     st.write("------------------")      
-    st.write(f"當前價值: {stock_sum:.2f}")
+    st.write(f"股票價值: {stock_sum:.2f}")
     st.write(f"台幣餘額: {195:.2f}")    
     st.write("------------------")  
     st.write(f"已投資金額: {already_money:.2f}")
