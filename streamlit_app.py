@@ -1,6 +1,12 @@
 import yfinance as yf
 import streamlit as st
 import pandas as pd
+
+def get_stock_data(ticker):
+    stock_data = yf.download(ticker, period="max", progress=False)
+    stock_data = stock_data.sort_index()
+    return stock_data
+
 # 獲取 VWRA.L 的股價
 def get_stock_price(ticker):
     stock = yf.Ticker(ticker)
@@ -16,6 +22,7 @@ def get_exchange_rate(base_currency, target_currency):
 def main():
     st.title("即時觀測")
 
+    stock_data = get_stock_data("VWRA.L")
     # 常數
     stock_count = 12   
     already_money = 50000 
