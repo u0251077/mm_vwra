@@ -1,6 +1,6 @@
 import yfinance as yf
 import streamlit as st
-import pandas
+import pandas as pd
 # 獲取 VWRA.L 的股價
 def get_stock_price(ticker):
     stock = yf.Ticker(ticker)
