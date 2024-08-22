@@ -55,7 +55,7 @@ def main():
     df = pd.DataFrame(data)
     
     # 顯示表格
-    st.table(df.T)  # 使用 .T 轉置 DataFrame 以顯示欄位名稱為列名
+    st.table(df)  # 使用 .T 轉置 DataFrame 以顯示欄位名稱為列名
 if __name__ == "__main__":
     main()
 
