@@ -23,6 +23,14 @@ def main():
     st.title("即時觀測")
 
     stock_data = get_stock_data("VWRA.L")
+    # 用Altair繪製圖表
+    base = alt.Chart(stock_data).encode(x='Date:T')
+    
+    lines = base.mark_line().encode(
+        y=alt.Y('Close', title='收盤價'),
+        color=alt.value('blue')
+    )
+    
     # 常數
     stock_count = 12   
     already_money = 50000 
