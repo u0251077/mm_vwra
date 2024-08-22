@@ -21,7 +21,7 @@ def get_exchange_rate(base_currency, target_currency):
     return exchange_rate['Close'].iloc[-1]
 
 def main():
-    st.title("即时观测")
+    st.title("即時觀測站")
 
     stock_data = get_stock_data("VWRA.L")
     
