@@ -41,8 +41,8 @@ def main():
     vwra_stock_price = get_stock_price('VWRA.L')
     usd_twd_exchange_rate = get_exchange_rate('USD', 'TWD')  # 注意这只是范例
 
-    st.write(f"VWRA.L 的股價: ${vwra_stock_price:.2f}")
-    st.write(f"美元對台幣匯率: {usd_twd_exchange_rate:.2f}")
+    st.write(f"即時VWRA.L 的股價: ${vwra_stock_price:.2f}")
+    st.write(f"即時美元對台幣匯率: {usd_twd_exchange_rate:.2f}")
     st.write("------------------")      
     
     st.write(f"持有數量: {stock_count}")
