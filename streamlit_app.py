@@ -1,6 +1,7 @@
 import yfinance as yf
 import streamlit as st
 import pandas as pd
+import altair as alt
 
 def get_stock_data(ticker):
     stock_data = yf.download(ticker, period="max", progress=False)
