@@ -45,7 +45,7 @@ def main():
     st.write(f"即時美元對台幣匯率: {usd_twd_exchange_rate:.2f}")
     st.write("------------------")      
     
-    st.write(f"持有數量: {stock_count}")
+    st.write(f"當前持有數量: {stock_count}")
     stock_sum = stock_count * vwra_stock_price * usd_twd_exchange_rate
 
     st.write("------------------")      
