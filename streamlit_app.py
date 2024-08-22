@@ -39,7 +39,11 @@ def main():
     st.write(f"台幣餘額: {195:.2f}")    
     st.write("------------------")  
     st.write(f"已投資金額: {already_money:.2f}")
-
+    df = pd.DataFrame(
+        ["2024/08/06", 126.78], columns=("1, 2")
+    )
+    
+    st.table(df)
 if __name__ == "__main__":
     main()
 
