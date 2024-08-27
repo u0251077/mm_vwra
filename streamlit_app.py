@@ -17,12 +17,18 @@ def get_stock_data(ticker: str) -> pd.DataFrame:
     stock_data = yf.download(ticker, start="2010-01-01", end=datetime.now().strftime('%Y-%m-%d'), progress=False)
     return stock_data.sort_index()
 
-@st.cache_data(ttl=300)
-def get_stock_price(ticker: str) -> float:
-    """Get the latest stock price."""
-    stock = yf.Ticker(ticker)
-    stock_info = stock.history(period='1d')
-    return stock_info['Close'].iloc[-1]
+@st.cache_data
+def get_stock_price(ticker):
+    try:
+        stock = yf.Ticker(ticker)
+        stock_info = stock.history(period='1d')
+        if stock_info.empty:
+            st.warning(f"No data available for {ticker}.")
+            return None
+        return stock_info
+    except Exception as e:
+        st.error(f"An error occurred while fetching data: {e}")
+        return None
 
 @st.cache_data(ttl=300)
 def get_exchange_rate(base_currency: str, target_currency: str) -> float:
