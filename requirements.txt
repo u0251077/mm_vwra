@@ -2,3 +2,5 @@ yfinance
 streamlit>=1.28
 pandas
 altair 
+typing
+datetime
