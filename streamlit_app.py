@@ -17,18 +17,12 @@ def get_stock_data(ticker: str) -> pd.DataFrame:
     stock_data = yf.download(ticker, start="2010-01-01", end=datetime.now().strftime('%Y-%m-%d'), progress=False)
     return stock_data.sort_index()
 
-@st.cache_data
-def get_stock_price(ticker):
-    try:
-        stock = yf.Ticker(ticker)
-        stock_info = stock.history(period='1d')
-        if stock_info.empty:
-            st.warning(f"No data available for {ticker}.")
-            return None
-        return stock_info
-    except Exception as e:
-        st.error(f"An error occurred while fetching data: {e}")
-        return None
+@st.cache_data(ttl=300)
+def get_stock_price(ticker: str) -> float:
+    """Get the latest stock price."""
+    stock = yf.Ticker(ticker)
+    stock_info = stock.history(period='1d')
+    return stock_info['Close'].iloc[-1]
 
 @st.cache_data(ttl=300)
 def get_exchange_rate(base_currency: str, target_currency: str) -> float:
@@ -75,27 +69,12 @@ def display_stock_info(stock_price: float, exchange_rate: float, transaction_dat
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        if stock_price is not None:
-            st.metric("即時股價", f"${stock_price:.2f}")
-        else:
-            st.warning("無法取得即時股價")
-
+        st.metric("即時股價", f"${stock_price:.2f}", f"{calculate_performance(stock_price, transaction_data['成交價格'].iloc[0]):.2f}%")
     with col2:
-        if exchange_rate is not None:
-            st.metric("即時匯率", f"{exchange_rate:.2f}")
-        else:
-            st.warning("無法取得即時匯率")
-
+        st.metric("即時匯率", f"{exchange_rate:.2f}", f"{calculate_performance(exchange_rate, transaction_data['匯率'].iloc[0]):.2f}%")
     with col3:
-        if stock_price is not None and not transaction_data.empty:
-            if '成交價格' in transaction_data.columns and not transaction_data['成交價格'].empty:
-                initial_price = transaction_data['成交價格'].iloc[0]
-                performance = calculate_performance(stock_price, initial_price)
-                st.metric("績效", f"{performance:.2f}%")
-            else:
-                st.warning("交易資料中沒有'成交價格'欄位或資料為空.")
-        else:
-            st.warning("交易資料無法顯示")
+        current_value = STOCK_COUNT * stock_price * exchange_rate
+        st.metric("當前總價值", f"${current_value:.2f}", f"{calculate_performance(current_value, ALREADY_INVESTED):.2f}%")
 
     st.write("------------------")
     col1, col2 = st.columns(2)
@@ -111,14 +90,14 @@ def main():
     st.set_page_config(page_title="VWRA.L 即時觀測站", layout="wide")
     st.title("VWRA.L 即時觀測站")
 
-    #stock_data = get_stock_data(STOCK_TICKER)
-    #chart = create_stock_chart(stock_data)
+    stock_data = get_stock_data(STOCK_TICKER)
+    chart = create_stock_chart(stock_data)
     
     stock_price = get_stock_price('VWRA.L')
     exchange_rate = get_exchange_rate('USD', 'TWD')
     transaction_data = create_transaction_table()
 
-    #st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, use_container_width=True)
 
     display_stock_info(stock_price, exchange_rate, transaction_data)
     
