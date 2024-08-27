@@ -100,6 +100,7 @@ def main():
     st.altair_chart(chart, use_container_width=True)
 
     display_stock_info(stock_price, exchange_rate, transaction_data)
+    st.write("-----------------")
     
     st.write("交易明細")
     st.dataframe(transaction_data.style.format({
