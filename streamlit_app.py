@@ -77,10 +77,10 @@ def main():
     st.set_page_config(page_title="VWRA.L 即时观测站", layout="wide")
     st.title("VWRA.L 即时观测站")
 
-    stock_data = get_stock_data(STOCK_TICKER)
+    stock_data = get_stock_data('VWRA.L')
     chart = create_stock_chart(stock_data)
     
-    stock_price = get_stock_price(STOCK_TICKER)
+    stock_price = get_stock_price('VWRA.L')
     exchange_rate = get_exchange_rate('USD', 'TWD')
     transaction_data = create_transaction_table()
 
