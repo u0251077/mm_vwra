@@ -21,7 +21,7 @@ def get_stock_data(ticker: str) -> pd.DataFrame:
 def get_stock_price(ticker: str) -> float:
     """Get the latest stock price."""
     stock = yf.Ticker(ticker)
-    stock_info = stock.history(period='1d')
+    stock_info = stock.history(period='5d')
     return stock_info['Close'].iloc[-1]
 
 @st.cache_data(ttl=300)
