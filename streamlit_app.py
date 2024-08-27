@@ -75,9 +75,16 @@ def display_stock_info(stock_price: float, exchange_rate: float, transaction_dat
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric("即時股價", f"${stock_price:.2f}", f"{calculate_performance(stock_price, transaction_data['成交價格'].iloc[0]):.2f}%")
+        if stock_price is not None:
+            st.metric("即時股價", f"${stock_price:.2f}")
+        else:
+            st.warning("無法取得即時股價")
+
     with col2:
-        st.metric("即時匯率", f"{exchange_rate:.2f}", f"{calculate_performance(exchange_rate, transaction_data['匯率'].iloc[0]):.2f}%")
+        if exchange_rate is not None:
+            st.metric("即時匯率", f"{exchange_rate:.2f}")
+        else:
+            st.warning("無法取得即時匯率")
 
     with col3:
         if stock_price is not None and not transaction_data.empty:
