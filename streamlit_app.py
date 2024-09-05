@@ -10,6 +10,7 @@ STOCK_TICKER = "VWRA.L"
 STOCK_COUNT = 12
 ALREADY_INVESTED = 50000
 TWD_BALANCE = 195
+# and data
 
 @st.cache_data(ttl=3600)
 def get_stock_data(ticker: str) -> pd.DataFrame:
