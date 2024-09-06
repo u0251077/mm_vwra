@@ -7,9 +7,9 @@ from datetime import datetime
 
 # Constants
 STOCK_TICKER = "VWRA.L"
-STOCK_COUNT = 12
-ALREADY_INVESTED = 50000
-TWD_BALANCE = 195
+STOCK_COUNT = 13
+ALREADY_INVESTED = 55000
+TWD_BALANCE = 888
 # and data
 
 @st.cache_data(ttl=3600)
@@ -51,13 +51,13 @@ def create_stock_chart(stock_data: pd.DataFrame) -> alt.Chart:
 def create_transaction_table() -> pd.DataFrame:
     """Create a DataFrame for transaction details."""
     data = {
-        "時間": ["2024/08/06"],
-        "成交價格": [126.46],
-        "成交數量": [12],
-        "手續費": [3.79],
-        "美金成本": [1521.31],
-        "台幣成本": [49805],
-        "匯率": [32.74]
+        "時間": ["2024/08/06"],["2024/09/05"],
+        "成交價格": [126.46],[134.08],
+        "成交數量": [12],[1],
+        "手續費": [3.79],[0.336]
+        "美金成本": [1521.31],[134.416]
+        "台幣成本": [49805],[4307]
+        "匯率": [32.74],[32.04]
     }
     return pd.DataFrame(data)
 
